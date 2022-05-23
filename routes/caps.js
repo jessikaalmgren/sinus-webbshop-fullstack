@@ -5,10 +5,10 @@ const express = require('express')
 const router = express.Router()
 
 //REST API
-//GET HOODIES
+//GET PRODUCTS
 router.get('/', async (req, res) => {
-	const hoodiesRef = db.collection('hoodies')
-	const snapshot = await hoodiesRef.get()
+	const capsRef = db.collection('caps')
+	const snapshot = await capsRef.get()
 
 	if (snapshot.empty) {
 		res.send([])
@@ -25,10 +25,10 @@ router.get('/', async (req, res) => {
 	res.send(items)
 })
 
-//GET by id
+//GET id
 router.get('/:id', async (req, res) => {
 	const id = req.params.id
-	const docRef = await db.collection('hoodies').doc(id).get()
+	const docRef = await db.collection('caps').doc(id).get()
 
 	if( !docRef.exists) {
 		res.status(404).send('This product does not exist.')
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 		return
 	}
 
-	const docRef = await db.collection('hoodies').add(object)
+	const docRef = await db.collection('caps').add(object)
 	res.send(docRef.id)
 })
 
@@ -62,7 +62,7 @@ router.put('/:id', async (req, res) => {
 		return
 	}
 
-	const docRef = db.collection('products').doc(id)
+	const docRef = db.collection('caps').doc(id)
 	await docRef.set(object, {merge: true})
 	res.sendStatus(200)
 
@@ -84,8 +84,9 @@ router.delete('/:id', async (req, res) => {
 		return
 	}
 
-	await db.collection('products').doc(id).delete()
+	await db.collection('caps').doc(id).delete()
 	res.sendStatus(200)
 })
+
 
 module.exports = router

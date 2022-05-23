@@ -4,6 +4,10 @@ const app = express()
 const cors = require('cors')
 const products = require('./routes/products.js')
 const hoodies = require('./routes/hoodies.js')
+const shirts = require('./routes/shirts.js')
+const skateboards = require('./routes/skateboards.js')
+const caps = require('./routes/caps.js')
+const accessories = require('./routes/accessories.js')
 
 
 const PORT = 1226
@@ -29,6 +33,10 @@ app.get('/', (req, res) => {
 //REST API for /products
 app.use('/products', products)
 app.use('/hoodies', hoodies)
+app.use('/shirts', shirts)
+app.use('/skateboards', skateboards)
+app.use('/caps', caps)
+app.use('/accessories', accessories)
 
 
 app.listen(PORT, () => {
