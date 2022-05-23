@@ -76,8 +76,9 @@ function checkProduct(maybeProduct) {
 //DELETE product:id
 router.delete('/:id', async (req, res) => {
 	const id = req.params.id
+	const docRef = await db.collection('skateboards').doc(id).get()
 
-	if( !id ) {
+	if( !docRef.exists ) {
 		res.sendStatus(400)
 		return
 	}

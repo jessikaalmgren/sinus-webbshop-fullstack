@@ -2,6 +2,7 @@ const getDataBase = require('../database.js')
 const db = getDataBase()
 
 const express = require('express')
+const { deepCopyForResponse } = require('google-gax/build/src/bundlingCalls/task')
 const router = express.Router()
 
 //REST API
@@ -78,8 +79,9 @@ function checkProduct(maybeProduct) {
 //DELETE product:id
 router.delete('/:id', async (req, res) => {
 	const id = req.params.id
+	const docRef = await db.collection('caps').doc(id).get()
 
-	if( !id ) {
+	if( !docRef.exists ) {
 		res.sendStatus(400)
 		return
 	}
